@@ -1,0 +1,10 @@
+body
+{
+	font-family: 'Tajawal', sans-serif;
+	line-height: 2;
+	background-image: url("../img/dust_scratches.png");
+}
+.blog_desc
+{
+	font-size: 18px
+}

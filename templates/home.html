@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% block meta_tags %}
+    <meta name="keywords" content="codes4u, codes for you" />
+    <meta name="description" content="مدونة Codes4U عبارة عن مدونة معرفية متخصصة في مجال تطوير مواقع الويب و تهدف الى رفع مستوى المحتوى العربي في المجال البرمجي." />
+    <!-- Open Graph data -->
+    <meta property="og:title" content="مدونة Codes4U عبارة عن مدونة معرفية متخصصة في مجال تطوير مواقع الويب و تهدف الى رفع مستوى المحتوى العربي في المجال البرمجي." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://codes4u.com" />
+    <meta property="og:image" content=""/>
+    <meta property="og:description" content="مدونة Codes4U عبارة عن مدونة معرفية متخصصة في مجال تطوير مواقع الويب و تهدف الى رفع مستوى المحتوى العربي في المجال البرمجي." />
+    <meta property="og:site_name" content="Codes4U" />
+    <!-- Usless But Needed Twitter Codes -->
+    <meta name="twitter:card" content="" />
+    <meta name="twitter:site" content="@codes4u" />
+    <meta name="twitter:creator" content="@codes4u" />
+    <meta name="twitter:image" content="" />
+    <meta name="twitter:title" content="مدونة Codes4U عبارة عن مدونة معرفية متخصصة في مجال تطوير مواقع الويب و تهدف الى رفع مستوى المحتوى العربي في المجال البرمجي." />
+    <meta name="twitter:description" content="مدونة Codes4U عبارة عن مدونة معرفية متخصصة في مجال تطوير مواقع الويب و تهدف الى رفع مستوى المحتوى العربي في المجال البرمجي." />
+{% endblock %}
+{% block title %}{{ block.super }} - الرئيسية{% endblock %}
+{% block content %}
+    <!-- Section heading -->
+    <h2 class="h1-responsive font-weight-bold text-center my-5">آخر المقالات</h2>
+    <!-- Section description -->
+    <p class="text-center w-responsive mx-auto mb-5 blog_desc">مدونة Codes4U عبارة عن مدونة معرفية متخصصة في مجال تطوير مواقع الويب و تهدف الى رفع  مستوى المحتوى العربي في المجال البرمجي.</p>
+    {% for post in posts %}
+        <!-- Grid row -->
+        <div class="row">
+            <!-- Grid column -->
+            <div class="col-lg-5">
+                {% if post.image %}
+                    <!-- Featured image -->
+                    <div class="view overlay rounded z-depth-2 mb-lg-0 mb-4">
+                        <img class="img-fluid" src="{{ post.image.url }}" title="{{ post.title }}" alt="image post" />
+                        <a href="{% url 'post-detail' post.slug %}" title="{{ post.title }}">
+                            <div class="mask rgba-white-slight"></div>
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+            <!-- Grid column -->
+            <!-- Grid column -->
+            <div class="col-lg-7">
+                <!-- Category -->
+                <a href="{% url 'category' post.category.slug %}" class="black-text">
+                    <h6 class="font-weight-bold mb-3">
+                        {% if post.category.name == 'مقالات عامة' %}
+                            <i class="fa fa-globe pr-1"></i>
+                        {% elif post.category.name == 'البرمجة و التصميم' %}
+                            <i class="fa fa-paint-brush pr-1"></i>
+                        {% else %}
+                            <i class="fa fa-desktop pr-1"></i>
+                        {% endif %}
+                        {{ post.category }}
+                    </h6>
+                </a>
+                <!-- Post title -->
+                <h3 class="font-weight-bold mb-3"><strong>{{ post.title }}</strong></h3>
+                <!-- Excerpt -->
+                <p>{{ post.excerpt|truncatechars:180 }}</p>
+                <!-- Post data -->
+                <p>
+                    <i class="fa fa-user"></i>
+                    <a>
+                        <strong>{% if post.author.get_full_name %}{{ post.author.get_full_name }}{% endif %}</strong>
+                    </a> ,
+                    <span><i class="fa fa-calendar"></i> {{ post.publish }}</span>
+                    {% if post.draft %}
+                        | <span style="color: red">مسودة</span>
+                    {% endif %}
+                </p>
+                <!-- Read more button -->
+                <a href="{% url 'post-detail' post.slug %}" class="btn btn-dark btn-md" title="أقرأ المزيد">أقرأ المزيد</a>
+            </div>
+            <!-- Grid column -->
+        </div>
+        <!-- Grid row -->
+        <hr class="my-5">
+    {% empty %}
+        {% if request.GET.q %}
+            <div class="alert alert-secondary" role="alert">
+              نتائج البحث خالية من المقالات
+            </div>
+        {% else %}
+            <div class="alert alert-secondary" role="alert">
+              لا توجد مقالات لعرضها
+            </div>
+        {% endif %}
+    {% endfor %}
+    <nav aria-label="Page navigation example">
+        <ul class="pagination pg-dark justify-content-center step-links">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a href="?page=1{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" class="page-link">&laquo; الأول</a>
+                    <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" class="page-link">السابق</a>
+                </li>
+            {% endif %}
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" class="page-link">التالي</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" class="page-link">الأخير &raquo;</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+{% endblock %}

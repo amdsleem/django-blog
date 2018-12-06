@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block meta_tags %}
+    <meta name="keywords" content="{{ post.keyword }}" />
+    <meta name="description" content="{{ post.excerpt|truncatechars:180 }}" />
+    <!-- Open Graph data -->
+    <meta property="og:title" content="{{ post.title }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://codes4u.com" />
+    <meta property="og:image" content="{{ post.image.url }}"/>
+    <meta property="og:description" content="{{ post.excerpt|truncatechars:180 }}" />
+    <meta property="og:site_name" content="Codes4U" />
+    <!-- Usless But Needed Twitter Codes -->
+    <meta name="twitter:card" content="{{ post.excerpt|truncatechars:180 }}" />
+    <meta name="twitter:site" content="@codes4u" />
+    <meta name="twitter:creator" content="@codes4u" />
+    <meta name="twitter:image" content="{{ post.image.url }}" />
+    <meta name="twitter:title" content="{{ post.title }}" />
+    <meta name="twitter:description" content="{{ post.excerpt|truncatechars:180 }}" />
+{% endblock %}
+{% block title %}{{ block.super }} - {{ post.title }}{% endblock %}
+{% block content %}
+    <div class="row">
+        <!-- Grid row -->
+        <!-- Grid column -->
+        <div class="col-lg-5">
+            {% if post.image %}
+                <!-- Featured image -->
+                <div class="view overlay rounded z-depth-2 mb-lg-0 mb-4">
+                    <img class="img-fluid" src="{{ post.image.url }}" title="{{ post.title }}" alt="image post" />
+                    <div class="mask rgba-white-slight"></div>
+                </div>
+            {% endif %}
+        </div>
+        <!-- Grid column -->
+        <!-- Grid column -->
+        <div class="col-lg-7">
+            <!-- Category -->
+            <a href="{% url 'category' post.category.slug %}" class="black-text">
+                <h6 class="font-weight-bold mb-3">
+                    {% if post.category.name == 'مقالات عامة' %}
+                        <i class="fa fa-globe pr-1"></i>
+                    {% elif post.category.name == 'البرمجة و التصميم' %}
+                        <i class="fa fa-paint-brush pr-1"></i>
+                    {% else %}
+                        <i class="fa fa-desktop pr-1"></i>
+                    {% endif %}
+                    {{ post.category }}
+                </h6>
+            </a>
+            <!-- Post title -->
+            <h3 class="font-weight-bold mb-3"><strong>{{ post.title }}</strong></h3>
+            <!-- Post data -->
+            <p>
+                <i class="fa fa-user"></i>
+                <a>
+                    <strong>{% if post.author.get_full_name %}{{ post.author.get_full_name }}{% endif %}</strong>
+                </a> ,
+                <span><i class="fa fa-calendar"></i> {{ post.publish }}</span>
+                {% if post.draft %}
+                    | <span style="color: red">مسودة</span>
+                {% endif %}
+            </p>
+            <div class="fb-like mb-3" data-href="{{ request.build_absolute_uri }}" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+            <!-- Content -->
+            {{ post.get_message_as_markdown }}
+        </div>
+        <!-- Grid column -->
+    </div>
+    <!-- Grid row -->
+    <hr class="my-3">
+    <div class="fb-comments" data-href="{{ request.build_absolute_uri }}" data-numposts="5"></div>
+{% endblock %}

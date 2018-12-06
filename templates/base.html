@@ -1,0 +1,193 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta http-equiv="x-ua-compatible" content="ie=edge" />
+        {% block meta_tags %}{% endblock %}
+        <title>{% block title %}Codes4U{% endblock %}</title>
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tajawal:500,700" />
+        <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+        <!-- Material Design Bootstrap -->
+        <link rel="stylesheet" href="{% static 'css/mdb.min.css' %}" />
+        <!-- Your custom styles (optional) -->
+        <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    </head>
+    <body lang="ar" dir="rtl">
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = 'https://connect.facebook.net/ar_AR/sdk.js#xfbml=1&version=v3.2';
+            fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        </script>
+
+        <!--Navbar-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <!-- container -->
+            <div class="container">
+                <!-- Navbar brand -->
+                <a class="navbar-brand" href="{% url 'home' %}" title="Codes4U">Codes4U</a>
+                <!-- Collapse button -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+                aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <!-- Collapsible content -->
+                <div class="collapse navbar-collapse" id="basicExampleNav">
+                    <!-- Links -->
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'home' %}" title="الرئيسية">الرئيسية
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        {% for category in category_list %}
+                             <li class="nav-item">
+                                <a class="nav-link" href="{% url 'category' category.slug %}" title="{{ category.name }}">{{ category.name }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <form class="form-inline">
+                        <div class="md-form my-0">
+                            <input class="form-control mr-sm-2" name="q" type="search" placeholder="أبحث هنا" value="{{ request.GET.q }}" aria-label="Search">
+                        </div>
+                    </form>
+                </div>
+                <!-- Collapsible content -->
+            </div>
+            <!-- /.container -->
+        </nav>
+        <!--/.Navbar-->
+
+        <!-- Grid -->
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-10">
+                    <!-- Section: Blog v.1 -->
+                    <section class="my-5">
+                        {% block content %}{% endblock %}
+                    </section>
+                </div>
+            </div>
+        </div>
+        <!-- Footer -->
+        <footer class="page-footer bg-dark text-md-left mt-4 pt-4">
+            <!--Footer Links-->
+            <div class="container">
+                <!-- Footer links -->
+                <div class="row text-md-left mt-3 pb-3">
+                    <!--First column-->
+                    <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                        <h6 class="text-uppercase mb-4 font-weight-bold">عن المدونة</h6>
+                        <p>مدونة Codes4U عبارة عن مدونة معرفية متخصصة في مجال تطوير مواقع الويب و تهدف الى رفع  مستوى المحتوى العربي في المجال البرمجي.</p>
+                    </div>
+                    <!--/.First column-->
+                    <hr class="w-100 clearfix d-md-none">
+                    <!--Second column-->
+                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+                        <h6 class="text-uppercase mb-4 font-weight-bold">الأقسام</h6>
+                        {% for category in category_list %}
+                            <p>
+                                <a href="{% url 'category' category.slug %}">{{ category.name }}</a>
+                            </p>
+                        {% endfor %}
+                    </div>
+                    <!--/.Second column-->
+                    <hr class="w-100 clearfix d-md-none">
+                    <!--Third column-->
+                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+                        <h6 class="text-uppercase mb-4 font-weight-bold">روابط مفيدة</h6>
+                        <p>
+                            <a href="{% url 'home' %}">الرئيسية</a>
+                        </p>
+                        <p>
+                            <a href="#">عن الكاتب</a>
+                        </p>
+                        <p>
+                            <a href="#">النشرة البريدية</a>
+                        </p>
+                        <p>
+                            <a href="#">مركز الدعم</a>
+                        </p>
+                    </div>
+                    <!--/.Third column-->
+                    <hr class="w-100 clearfix d-md-none">
+                    <!--Fourth column-->
+                    <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                        <h6 class="text-uppercase mb-4 font-weight-bold">تابعنا على الفيسبوك</h6>
+                        <div class="fb-page"
+                            data-href="https://www.facebook.com/facebook"
+                            data-width="380"
+                            data-hide-cover="false"
+                            data-show-facepile="false">
+                        </div>
+                    </div>
+                    <!--/.Fourth column-->
+                </div>
+                <!-- Footer links -->
+                <hr>
+                <div class="row py-3 d-flex align-items-center">
+                    <!--Grid column-->
+                    <div class="col-md-7 col-lg-8">
+                        <!--Copyright-->
+                        <p class="text-center text-md-left grey-text">
+                        © 2018 Copyright: <a href="https://mdbootstrap.com/bootstrap-tutorial/" target="_blank"> Codes4U </a>
+                        </p>
+                        <!--/.Copyright-->
+                    </div>
+                    <!--Grid column-->
+                    <!--Grid column-->
+                    <div class="col-md-5 col-lg-4 ml-lg-0">
+                        <!--Social buttons-->
+                        <div class="social-section text-center text-md-left">
+                            <ul class="list-unstyled list-inline">
+                                <li class="list-inline-item mx-0">
+                                    <a class="btn-floating btn-sm rgba-white-slight mr-xl-4 waves-effect waves-light">
+                                        <i class="fa fa-facebook"></i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item mx-0">
+                                    <a class="btn-floating btn-sm rgba-white-slight mr-xl-4 waves-effect waves-light">
+                                        <i class="fa fa-twitter"></i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item mx-0">
+                                    <a class="btn-floating btn-sm rgba-white-slight mr-xl-4 waves-effect waves-light">
+                                        <i class="fa fa-google-plus"></i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item mx-0">
+                                    <a href="#" target="_blank" class="btn-floating btn-sm rgba-white-slight mr-xl-4 waves-effect waves-light">
+                                        <i class="fa fa-linkedin"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!--/.Social buttons-->
+                    </div>
+                    <!--Grid column-->
+                </div>
+            </div>
+        </footer>
+        <!-- /.Footer -->
+        <!-- SCRIPTS -->
+        <!-- JQuery -->
+        <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+        <!-- Bootstrap tooltips -->
+        <script src="{% static 'js/popper.min.js' %}"></script>
+        <!-- Bootstrap core JavaScript -->
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <!-- MDB core JavaScript -->
+        <script src="{% static 'js/mdb.min.js' %}"></script>
+        <script>
+            new WOW().init();
+        </script>
+    </body>
+</html>
