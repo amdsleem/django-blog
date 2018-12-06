@@ -4,28 +4,28 @@
 ## Blog Contents:
 <ul>
   <li>
-    <h3>Home Page</h3>
+    <h4>Home Page</h4>
   </li>
   <li>
-    <h3>Post Detail Page</h3>
+    <h4>Post Detail Page</h4>
   </li>
   <li>
-    <h3>Category Page</h3>
+    <h4>Category Page</h4>
   </li>
 </ul>
 
 ## Blog Advanced
 <ul>
   <li>
-    <h3>Simple Search System</h3>
+    <h4>Simple Search System</h4>
   </li>
   <li>
-    <h3>Comment, Likes and Shear Posts Using Facebook Api</h3>
+    <h4>Comment, Likes and Shear Posts Using Facebook Api</h4>
   </li>
   <li>
-    <h3>Support Arabic Language</h3>
+    <h4>Support Arabic Language</h4>
   </li>
   <li>
-    <h3>Using <a href="https://mdbootstrap.com/">Bootstrap4 Material Design</a></h3>
+    <h4>Using <a href="https://mdbootstrap.com/">Bootstrap4 Material Design</a></h4>
   </li>
 </ul>
