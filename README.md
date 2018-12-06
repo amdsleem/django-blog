@@ -1,4 +1,4 @@
-# django-blog | <a href="">Demo</a>
+# django-blog | <a href="https://codes4u.herokuapp.com/" target="_blank">Demo</a>
 #### simple blog by django
 
 ## Blog Contents:
